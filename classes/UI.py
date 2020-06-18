@@ -13,6 +13,7 @@ PRETENDER_NAME = 'Претендент'
 WINNER_TEXT = 'Вы победили короля! Введите новое имя Короля!'
 LOSER_TEXT = 'К сожалению, Вы проиграли!'
 LOSER_TEXT2 = 'Нажмите F5, чтобы начать сначала.'
+HELP_TEXT = 'F5 - начать сначала. ESC - выход.'
 PRETENDER_COLUMN_HEIGHT = 10
 KING_COLUMN_HEIGHT = 370
 
@@ -24,6 +25,7 @@ SCORE_BG_COLOR = (0, 0, 0)
 SCORE_FONT_COLOR = (255, 126, 0)
 COLUMN_COLOR = (132, 112, 110)
 WINNER_TEXT_COLOR = (226, 127, 0)
+HELP_TEXT_COLOR = (226, 127, 0)
 
 SCORE_FONT = pygame.freetype.Font(os.path.join(PROJECT_ROOT, 'fonts/scoreboard.ttf'), 45)
 TEXT_FONT = pygame.freetype.Font(os.path.join(PROJECT_ROOT, 'fonts/mr_CoasterG Black.otf'), 35)
@@ -54,6 +56,13 @@ class UI:
 
         pygame.draw.rect(surface, UI_COLOR, (0, 0, scr_width, HEADER_HEIGHT))
         pygame.draw.rect(surface, UI_COLOR, (0, scr_height - FOOTER_HEIGHT, scr_width, FOOTER_HEIGHT))
+
+        scr_width, scr_height = pygame.display.get_surface().get_size()
+        help_pos = (scr_width/2 - 300, scr_height - 70)
+        help_pos_text = (help_pos[0] + 10, help_pos[1] + 10)
+        help_dim = (550, 50)
+        pygame.draw.rect(surface, pygame.Color('black'), [help_pos, help_dim])
+        TEXT_FONT.render_to(surface, help_pos_text, HELP_TEXT, HELP_TEXT_COLOR)
 
     def render_scores(self, surface, top, current):
         """Выводит счета лидера и текущего пользователя"""
