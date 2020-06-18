@@ -6,3 +6,11 @@ This project emulate basic functionality of classic Color Lines game that was ve
 
 Screenshot:
 https://yadi.sk/i/REhGg4D2WDBiZA
+
+Used and learned basics of such libraries as:
+- pygame
+- pyinstaller
+- confuse
+- ruamel
+
+Used Breadth-first search to figure out if path exists between two points in grid matrix.
