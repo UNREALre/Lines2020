@@ -1,0 +1,10 @@
+app:
+  name: Lines 2020
+
+appName: Lines2020
+
+leader:
+  name: "Бегемотик"
+  score: 5
+
+logLevel: 0
