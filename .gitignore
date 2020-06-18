@@ -5,3 +5,6 @@
 logs/*
 # exception to the rule
 !logs/.gitkeep
+/main.spec
+/build/
+/dist/
