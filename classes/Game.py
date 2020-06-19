@@ -94,7 +94,7 @@ class Game:
                     elif event.key == pygame.K_F5:
                         # Начать сначала
                         self.end_game()
-                elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     # Определяем был ли клик по шарику
 
                     pos = pygame.mouse.get_pos()
@@ -193,6 +193,7 @@ class Game:
 
             self.predict_next_colors()
             self.ui.render_next_colors(self.window, self._next_colors)
+            self.destroy_similar()
 
         except ValueError:
             # Сетка заполнена
