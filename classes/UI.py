@@ -34,9 +34,9 @@ PRETENDER_SPRITE = os.path.join(PROJECT_ROOT, 'sprites/pretender.png')
 SAD_SPRITE = os.path.join(PROJECT_ROOT, 'sprites/sad.png')
 COLUMN = os.path.join(PROJECT_ROOT, 'sprites/column.svg')
 
-SCORE_CENTER_PADDING = 400  # отступ для окна со счетом от центра
-PERSON_CENTER_PADDING = 500  # отступ для короля от центра
-PRETENDER_CENTER_PADDING = 330  # отступ для претендента от центра
+SCORE_CENTER_PADDING = 600  # отступ для окна со счетом от центра
+PERSON_CENTER_PADDING = 700  # отступ для короля от центра
+PRETENDER_CENTER_PADDING = 530  # отступ для претендента от центра
 
 
 class UI:
