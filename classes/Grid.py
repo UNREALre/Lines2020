@@ -26,8 +26,8 @@ class Grid:
         self.x_centered = scr_width / 2 - self.width / 2
         self.y_centered = scr_height / 2 - self.height / 2
 
-        self._grid_cell_width = 58
-        self._grid_cell_height = 58
+        self._grid_cell_width = 94
+        self._grid_cell_height = 94
 
     def draw(self, surface):
         """Рисует игровую сетку"""
@@ -78,7 +78,7 @@ class Grid:
         for row in self.matrix:
             for ball in row:
                 if ball:
-                    rect = pygame.Rect(ball.pos_x, ball.pos_y, 58, 58)
+                    rect = pygame.Rect(ball.pos_x, ball.pos_y, self._grid_cell_width, self._grid_cell_height)
                     if rect.collidepoint(pos):
                         return ball
 
@@ -89,7 +89,7 @@ class Grid:
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 cell_coords = self.matrix_pos_to_grid_coords((i, j))
-                rect = pygame.Rect(cell_coords[0], cell_coords[1], 58, 58)
+                rect = pygame.Rect(cell_coords[0], cell_coords[1], self._grid_cell_width, self._grid_cell_height)
                 if rect.collidepoint(pos):
                     return i, j
 

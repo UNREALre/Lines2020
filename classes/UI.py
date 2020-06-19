@@ -156,9 +156,9 @@ class UI:
     def render_next_colors(self, surface, next_colors):
         """Рендерит область, показывающую, какие шары по цвету будут следующими выброшены в игру"""
 
-        next_pos = (self._x_centered-100, 25)
+        next_pos = (self._x_centered-150, 5)
         for i in range(len(next_colors)):
-            delta_x = i * 70
+            delta_x = i * 120
             surface.blit(next_colors[i][0], (next_pos[0] + delta_x, next_pos[1]))
 
     def game_over(self, surface):
