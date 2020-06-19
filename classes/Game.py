@@ -163,6 +163,7 @@ class Game:
         global app_config
         app_config = reload_config()
 
+        self._next_colors = []
         self.score = 0
         self._game_state = GAME_STATES[0]
 
