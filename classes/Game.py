@@ -9,7 +9,7 @@ import ruamel.yaml
 from utils import pygame_textinput
 from classes.Grid import Grid
 from classes.UI import UI
-from classes.Ball import Ball
+from classes.Ball import Ball, randomize_sprite
 from config import PROJECT_ROOT, app_config, reload_config
 
 app_config = app_config
@@ -50,6 +50,7 @@ class Game:
         self.points_per_ball = points_per_ball  # кол-во очков за шарик в уничтоженном ряду одинакового цвета
         self.score = 0  # текущий счет пользователя
 
+        self._next_colors = self.predict_next_colors()  # список цветов шаров на следующем шаге
         self._text_input = self.ui.init_text_input()  # тут победитель будет вводить свое имя
         self._game_state = GAME_STATES[0]
         self._run = False
@@ -170,19 +171,28 @@ class Game:
         self.grid.reset(self.window)
         self.generate_balls(self.init_balls)
 
+    def predict_next_colors(self):
+        """Определяет, какого цвета будут шары на следующем вбросе(ходе)"""
+        self._next_colors = []
+        for i in range(self.per_round_balls):
+            self._next_colors.append(randomize_sprite())
+
     def generate_balls(self, number):
         """Генерирует объекты Ball в количестве равном number шт в случайных ячейках сетки"""
 
         try:
             for i in range(number):
                 matrix_pos = self.get_random_ball_matrix_position()
-                # print("Adding new Ball in mx_pos = {}".format(matrix_pos))
                 pos_x, pos_y = self.grid.matrix_pos_to_grid_coords(matrix_pos)
-                ball = Ball(pos_x, pos_y, matrix_pos[0], matrix_pos[1])
+                predefined_color = self._next_colors[i] if self._next_colors else None
+                ball = Ball(pos_x, pos_y, matrix_pos[0], matrix_pos[1], predefined_color)
                 self.grid.update_grid(matrix_pos, ball, self.window)
 
             if self.is_no_empty_cells():
                 raise ValueError("Grid is full!")
+
+            self.predict_next_colors()
+            self.ui.render_next_colors(self.window, self._next_colors)
 
         except ValueError:
             # Сетка заполнена

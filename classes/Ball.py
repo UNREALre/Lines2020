@@ -15,24 +15,25 @@ default_ball_sprites = [(pygame.image.load(os.path.join(PROJECT_ROOT, 'sprites/s
 anim_delta = 2
 
 
+def randomize_sprite():
+    """Возвращает случайный спрайт"""
+
+    return default_ball_sprites[random.randrange(0, len(default_ball_sprites))]
+
+
 class Ball:
     """Класс для работы с шариками"""
 
-    def __init__(self, pos_x, pos_y, mx_pos_row, mx_pos_col):
+    def __init__(self, pos_x, pos_y, mx_pos_row, mx_pos_col, predefined_color=None):
         """Инициализирует шар"""
 
-        self.sprite, self.color = self.randomize_sprite()
+        self.sprite, self.color = predefined_color if predefined_color else randomize_sprite()
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.mx_pos_row = mx_pos_row  # позиция в матрице сетки по горизонтали
         self.mx_pos_col = mx_pos_col  # позиция в матрице сетки по вертикали
         self.selected = False
         self.anim_state = 'center'  # top, center, down - показывает состояние шарика в моменте
-
-    def randomize_sprite(self):
-        """Возвращает случайный спрайт"""
-
-        return default_ball_sprites[random.randrange(0, len(default_ball_sprites))]
 
     def draw(self, surface):
         """Рисует шарик в окне"""

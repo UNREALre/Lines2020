@@ -153,6 +153,14 @@ class UI:
         TEXT_FONT.render_to(surface, header_pos, WINNER_TEXT, WINNER_TEXT_COLOR)
         surface.blit(text_input.get_surface(), input_pos)
 
+    def render_next_colors(self, surface, next_colors):
+        """Рендерит область, показывающую, какие шары по цвету будут следующими выброшены в игру"""
+
+        next_pos = (self._x_centered-100, 25)
+        for i in range(len(next_colors)):
+            delta_x = i * 70
+            surface.blit(next_colors[i][0], (next_pos[0] + delta_x, next_pos[1]))
+
     def game_over(self, surface):
         """Показывает окно завершения игры"""
 
