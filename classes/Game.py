@@ -116,6 +116,12 @@ class Game:
                                     is_destroyed = self.destroy_similar()
                                     if not is_destroyed:
                                         self.generate_balls(self.per_round_balls)
+                        elif self.ui.is_reset_btn_clicked(pos):
+                            # Был клик на кнопке Сначала
+                            self.reset()
+                        elif self.ui.is_exit_btn_clicked(pos):
+                            # Был клик на кнопке Выход
+                            self._run = False
 
         elif self._game_state == 'awaiting_winner_name':
             for event in events:

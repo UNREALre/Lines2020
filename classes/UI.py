@@ -13,7 +13,8 @@ PRETENDER_NAME = 'Претендент'
 WINNER_TEXT = 'Вы победили короля! Введите новое имя Короля!'
 LOSER_TEXT = 'К сожалению, Вы проиграли!'
 LOSER_TEXT2 = 'Нажмите F5, чтобы начать сначала.'
-HELP_TEXT = 'F5 - начать сначала. ESC - выход.'
+RESET_TEXT = 'СНАЧАЛА'
+EXIT_TEXT = 'ВЫХОД'
 PRETENDER_COLUMN_HEIGHT = 10
 KING_COLUMN_HEIGHT = 370
 
@@ -25,7 +26,7 @@ SCORE_BG_COLOR = (0, 0, 0)
 SCORE_FONT_COLOR = (255, 126, 0)
 COLUMN_COLOR = (132, 112, 110)
 WINNER_TEXT_COLOR = (226, 127, 0)
-HELP_TEXT_COLOR = (226, 127, 0)
+FOOTER_TEXT_COLOR = (226, 127, 0)
 
 SCORE_FONT = pygame.freetype.Font(os.path.join(PROJECT_ROOT, 'fonts/scoreboard.ttf'), 45)
 TEXT_FONT = pygame.freetype.Font(os.path.join(PROJECT_ROOT, 'fonts/mr_CoasterG Black.otf'), 35)
@@ -43,10 +44,20 @@ class UI:
     """Класс для работы с интерфейсом пользователя"""
 
     def __init__(self, surface):
-        self.render_panels(surface)
         scr_width, scr_height = pygame.display.get_surface().get_size()
+
         self._x_centered = scr_width / 2
         self._y_centered = scr_height / 2
+
+        self._reset_pos = (scr_width/2 - 300, scr_height - 70)
+        self._reset_pos_text = (self._reset_pos[0] + 10, self._reset_pos[1] + 10)
+        self._reset_dim = (165, 50)
+
+        self._exit_pos = (self._reset_pos[0] + 500, self._reset_pos[1])
+        self._exit_pos_text = (self._exit_pos[0] + 10, self._exit_pos[1] + 10)
+        self._exit_dim = (130, 50)
+
+        self.render_panels(surface)
 
     def render_panels(self, surface):
         """Рисуем подложки для хедера и футера"""
@@ -57,12 +68,12 @@ class UI:
         pygame.draw.rect(surface, UI_COLOR, (0, 0, scr_width, HEADER_HEIGHT))
         pygame.draw.rect(surface, UI_COLOR, (0, scr_height - FOOTER_HEIGHT, scr_width, FOOTER_HEIGHT))
 
-        scr_width, scr_height = pygame.display.get_surface().get_size()
-        help_pos = (scr_width/2 - 300, scr_height - 70)
-        help_pos_text = (help_pos[0] + 10, help_pos[1] + 10)
-        help_dim = (550, 50)
-        pygame.draw.rect(surface, pygame.Color('black'), [help_pos, help_dim])
-        TEXT_FONT.render_to(surface, help_pos_text, HELP_TEXT, HELP_TEXT_COLOR)
+
+        pygame.draw.rect(surface, pygame.Color('black'), [self._reset_pos, self._reset_dim])
+        TEXT_FONT.render_to(surface, self._reset_pos_text, RESET_TEXT, FOOTER_TEXT_COLOR)
+
+        pygame.draw.rect(surface, pygame.Color('black'), [self._exit_pos, self._exit_dim])
+        TEXT_FONT.render_to(surface, self._exit_pos_text, EXIT_TEXT, FOOTER_TEXT_COLOR)
 
     def render_scores(self, surface, top, current):
         """Выводит счета лидера и текущего пользователя"""
@@ -171,3 +182,13 @@ class UI:
         pygame.draw.rect(surface, UI_COLOR, [dialogue_pos, dialogue_dim])
         TEXT_FONT.render_to(surface, header_pos, LOSER_TEXT, WINNER_TEXT_COLOR)
         TEXT_FONT.render_to(surface, sub_header_pos, LOSER_TEXT2, WINNER_TEXT_COLOR)
+
+    def is_reset_btn_clicked(self, pos):
+        """Возвращает True, если пользователь кликнул по кнопке СНАЧАЛА"""
+        rect = pygame.Rect(self._reset_pos, self._reset_dim)
+        return True if rect.collidepoint(pos) else False
+
+    def is_exit_btn_clicked(self, pos):
+        """Возвращает True, если пользователь кликнул по кнопке ВЫХОД"""
+        rect = pygame.Rect(self._exit_pos, self._exit_dim)
+        return True if rect.collidepoint(pos) else False
